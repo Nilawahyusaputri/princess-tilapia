@@ -1,111 +1,59 @@
 import streamlit as st
-import numpy as np
-from PIL import Image
 import tensorflow as tf
+from tensorflow.keras.models import load_model
+from PIL import Image
+import numpy as np
 import cv2
 
-# Fungsi untuk memuat model
-@st.cache_resource
-def load_model():
-    model = tf.keras.models.load_model('model_glaukoma.h5')  # Ganti dengan path model Anda
-    return model
+# Load pre-trained model (pastikan model Anda sudah ada di folder)
+model = load_model("path_to_your_model.h5")
 
-# Fungsi untuk memproses gambar
-def preprocess_image(image, img_size):
-    image = image.resize((img_size, img_size))
-    image_array = np.array(image) / 255.0  # Normalisasi
-    if len(image_array.shape) == 2:  # Jika grayscale, ubah jadi RGB
-        image_array = cv2.cvtColor(image_array, cv2.COLOR_GRAY2RGB)
-    elif image_array.shape[-1] == 1:  # Jika channel 1, ubah jadi 3 channel
-        image_array = np.repeat(image_array, 3, axis=-1)
-    return np.expand_dims(image_array, axis=0)  # Tambahkan dimensi batch
+# Function to preprocess image
+def preprocess_image(image):
+    # Convert the image to grayscale (as an example)
+    image = image.convert("RGB")
+    image = image.resize((224, 224))  # Resize to the expected size for the model
+    image = np.array(image)
+    image = np.expand_dims(image, axis=0)  # Add batch dimension
+    image = image / 255.0  # Normalize the image
+    return image
 
-# Fungsi untuk prediksi
-def predict_glaucoma(image, model):
-    prediction = model.predict(image)
-    return prediction
-
-# Konfigurasi halaman Streamlit
-st.set_page_config(
-    page_title="Deteksi Glaukoma",
-    page_icon="🧿",
-    layout="centered",
-    initial_sidebar_state="collapsed"
-)
-
-# Tampilan header
-st.markdown(
-    """
-    <style>
-        body {
-            background-color: #f9f9f9;
-        }
-        .title {
-            text-align: center;
-            color: #3A3B3C;
-        }
-        .subheader {
-            text-align: center;
-            color: #555555;
-            font-size: 18px;
-        }
-        .footer {
-            text-align: center;
-            color: #888888;
-            margin-top: 30px;
-            font-size: 14px;
-        }
-    </style>
-    <h1 class="title">🧿 Web Deteksi Glaukoma</h1>
-    <p class="subheader">Unggah gambar retina untuk mendeteksi apakah terdapat indikasi glaukoma.</p>
-    """, unsafe_allow_html=True
-)
-
-# Memuat model
-model = load_model()
-
-# Ukuran gambar input
-IMG_SIZE = 224  # Sesuaikan dengan ukuran model Anda
-
-# Input gambar
-uploaded_image = st.file_uploader("Unggah Gambar Retina Anda (JPG/PNG)", type=["jpg", "png", "jpeg"])
-
-if uploaded_image is not None:
-    # Menampilkan gambar yang diunggah
-    image = Image.open(uploaded_image)
-    st.image(image, caption="Gambar yang diunggah", use_column_width=True)
-
-    # Preprocessing gambar
-    processed_image = preprocess_image(image, IMG_SIZE)
-
-    # Prediksi dengan model
-    st.write("⏳ Memproses gambar...")
-    prediction = predict_glaucoma(processed_image, model)
+# Function to make prediction
+def predict(image):
+    # Preprocess the image
+    processed_image = preprocess_image(image)
     
-    # Menampilkan hasil
-    st.markdown(
-        "<h2 style='text-align: center; color: #3A3B3C;'>📊 Hasil Deteksi</h2>", 
-        unsafe_allow_html=True
-    )
-    if prediction[0][0] > 0.5:
-        st.markdown(
-            f"<h3 style='text-align: center; color: #FF4B4B;'>💡 Positif Glaukoma</h3>"
-            f"<p style='text-align: center; color: #3A3B3C;'>Probabilitas: {prediction[0][0] * 100:.2f}%</p>",
-            unsafe_allow_html=True
-        )
-    else:
-        st.markdown(
-            f"<h3 style='text-align: center; color: #4CAF50;'>✅ Negatif Glaukoma</h3>"
-            f"<p style='text-align: center; color: #3A3B3C;'>Probabilitas: {(1 - prediction[0][0]) * 100:.2f}%</p>",
-            unsafe_allow_html=True
-        )
+    # Predict using the model
+    prediction = model.predict(processed_image)
+    
+    # Assuming a binary classification for glaucoma (1 = Glaucoma, 0 = Normal)
+    return prediction[0][0]  # Return the probability of having glaucoma
 
-# Footer
-st.markdown(
-    """
-    <div class="footer">
-        Aplikasi ini menggunakan model machine learning untuk membantu deteksi dini glaukoma. 
-        Hasil prediksi tidak menggantikan diagnosis dokter. Silakan konsultasikan hasil ke tenaga medis.
-    </div>
-    """, unsafe_allow_html=True
-)
+# Streamlit UI
+st.title("Glaucoma Detection System")
+st.write("Upload an image of the retina to detect glaucoma.")
+
+# File uploader
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
+
+if uploaded_file is not None:
+    # Open the image
+    image = Image.open(uploaded_file)
+    
+    # Show the uploaded image
+    st.image(image, caption="Uploaded Image", use_column_width=True)
+    st.write("")
+    
+    # Make prediction
+    prediction = predict(image)
+    
+    # Display results
+    if prediction > 0.5:
+        st.subheader("Result: Glaucoma Detected")
+        st.write(f"Confidence: {prediction*100:.2f}%")
+    else:
+        st.subheader("Result: No Glaucoma")
+        st.write(f"Confidence: {(1 - prediction)*100:.2f}%")
+    
+    # Additional output (optional)
+    st.write("This result is based on the analysis of the retina image.")
