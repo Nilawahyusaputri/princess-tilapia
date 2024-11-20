@@ -4,11 +4,6 @@ from PIL import Image
 import tensorflow as tf
 import cv2
 
-st.title('👀 Glaucoma Imaging')
-
-st.write('description ')
-
-
 # Fungsi untuk memuat model
 @st.cache_resource
 def load_model():
@@ -31,10 +26,40 @@ def predict_glaucoma(image, model):
     return prediction
 
 # Konfigurasi halaman Streamlit
-st.set_page_config(page_title="Deteksi Glaukoma", page_icon="🧿", layout="centered")
+st.set_page_config(
+    page_title="Deteksi Glaukoma",
+    page_icon="🧿",
+    layout="centered",
+    initial_sidebar_state="collapsed"
+)
 
-st.title("🧿 Web Deteksi Glaukoma dengan Gambar Retina")
-st.write("Unggah gambar retina untuk mendeteksi apakah terdapat indikasi glaukoma.")
+# Tampilan header
+st.markdown(
+    """
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+        .title {
+            text-align: center;
+            color: #3A3B3C;
+        }
+        .subheader {
+            text-align: center;
+            color: #555555;
+            font-size: 18px;
+        }
+        .footer {
+            text-align: center;
+            color: #888888;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+    </style>
+    <h1 class="title">🧿 Web Deteksi Glaukoma</h1>
+    <p class="subheader">Unggah gambar retina untuk mendeteksi apakah terdapat indikasi glaukoma.</p>
+    """, unsafe_allow_html=True
+)
 
 # Memuat model
 model = load_model()
@@ -43,7 +68,7 @@ model = load_model()
 IMG_SIZE = 224  # Sesuaikan dengan ukuran model Anda
 
 # Input gambar
-uploaded_image = st.file_uploader("Unggah Gambar Retina Anda", type=["jpg", "png", "jpeg"])
+uploaded_image = st.file_uploader("Unggah Gambar Retina Anda (JPG/PNG)", type=["jpg", "png", "jpeg"])
 
 if uploaded_image is not None:
     # Menampilkan gambar yang diunggah
@@ -58,8 +83,29 @@ if uploaded_image is not None:
     prediction = predict_glaucoma(processed_image, model)
     
     # Menampilkan hasil
-    st.write("📊 **Hasil Deteksi:**")
+    st.markdown(
+        "<h2 style='text-align: center; color: #3A3B3C;'>📊 Hasil Deteksi</h2>", 
+        unsafe_allow_html=True
+    )
     if prediction[0][0] > 0.5:
-        st.write("💡 **Positif Glaukoma** dengan probabilitas {:.2f}%.".format(prediction[0][0] * 100))
+        st.markdown(
+            f"<h3 style='text-align: center; color: #FF4B4B;'>💡 Positif Glaukoma</h3>"
+            f"<p style='text-align: center; color: #3A3B3C;'>Probabilitas: {prediction[0][0] * 100:.2f}%</p>",
+            unsafe_allow_html=True
+        )
     else:
-        st.write("✅ **Negatif Glaukoma** dengan probabilitas {:.2f}%.".format((1 - prediction[0][0]) * 100))
+        st.markdown(
+            f"<h3 style='text-align: center; color: #4CAF50;'>✅ Negatif Glaukoma</h3>"
+            f"<p style='text-align: center; color: #3A3B3C;'>Probabilitas: {(1 - prediction[0][0]) * 100:.2f}%</p>",
+            unsafe_allow_html=True
+        )
+
+# Footer
+st.markdown(
+    """
+    <div class="footer">
+        Aplikasi ini menggunakan model machine learning untuk membantu deteksi dini glaukoma. 
+        Hasil prediksi tidak menggantikan diagnosis dokter. Silakan konsultasikan hasil ke tenaga medis.
+    </div>
+    """, unsafe_allow_html=True
+)
