@@ -97,25 +97,23 @@ def main():
         
     elif choice == "Detection":
         st.markdown("<div class='main-header'>Glaucoma Detection</div>", unsafe_allow_html=True)
-        st.markdown("<div class='subheader'>Could you upload a picture of the inside of your eye (fundus)? It's the photo that shows the retina and blood vessels
-
-</div>", unsafe_allow_html=True)
+        st.markdown("<div class='subheader'>Could you upload a picture of the inside of your eye (fundus)? It's the photo that shows the retina and blood vessels.</div>", unsafe_allow_html=True)
         
         # Kotak unggah gambar
         st.markdown("<div class='upload-section'>", unsafe_allow_html=True)
-        uploaded_file = st.file_uploader("Upload Retina Image", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("Upload Fundus Image", type=["jpg", "jpeg", "png"])
         st.markdown("</div>", unsafe_allow_html=True)
 
         # Placeholder untuk hasil analisis
         if uploaded_file:
-            st.image(uploaded_file, caption="Uploaded Retina Image", use_column_width=True)
+            st.image(uploaded_file, caption="Uploaded Fundus Image", use_column_width=True)
             st.success("Image uploaded successfully! Analysis results will be displayed below.")
         else:
             st.info("Please upload an image to proceed.")
 
         # Tombol ajakan bertindak
         st.markdown("<div style='text-align:center; margin-top:20px;'>", unsafe_allow_html=True)
-        if st.button("Analyze Retina"):
+        if st.button("Analyze Fundus"):
             st.warning("Analysis model integration is in progress. Please check back soon.")
         st.markdown("</div>", unsafe_allow_html=True)
 
