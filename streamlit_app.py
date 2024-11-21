@@ -53,7 +53,7 @@ def main():
     apply_custom_css()
 
     # Header aplikasi
-    st.markdown("<div class='main-header'>Retina Vision Detection</div>", unsafe_allow_html=True)
+    st.markdown("<div class='main-header'>Glaucoma Detection</div>", unsafe_allow_html=True)
     st.markdown("<div class='subheader'>Upload your retina image to analyze glaucoma risks</div>", unsafe_allow_html=True)
     
     # Kotak unggah gambar
