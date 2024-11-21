@@ -97,7 +97,9 @@ def main():
         
     elif choice == "Detection":
         st.markdown("<div class='main-header'>Glaucoma Detection</div>", unsafe_allow_html=True)
-        st.markdown("<div class='subheader'>Upload your retina image to assess glaucoma risk</div>", unsafe_allow_html=True)
+        st.markdown("<div class='subheader'>Could you upload a picture of the inside of your eye (fundus)? It's the photo that shows the retina and blood vessels
+
+</div>", unsafe_allow_html=True)
         
         # Kotak unggah gambar
         st.markdown("<div class='upload-section'>", unsafe_allow_html=True)
