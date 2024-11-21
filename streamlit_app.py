@@ -6,13 +6,10 @@ def apply_custom_css():
     st.markdown("""
     <style>
     body {
-        background: linear-gradient(to right, #c9d6ff, #e2e2e2); /* Warna biru lembut */
+        background: #f0f4f8; /* Warna latar belakang lembut */
         font-family: 'Arial', sans-serif;
     }
-    .stApp {
-        background-color: #f0f4f8; /* Warna abu-abu terang */
-    }
-    .header {
+    .main-header, .header {
         font-size: 2.5rem;
         font-weight: bold;
         color: #1f4e79; /* Warna biru tua */
@@ -23,19 +20,23 @@ def apply_custom_css():
         font-size: 1.2rem;
         color: #495057; /* Warna abu-abu tua */
         text-align: center;
+        margin-bottom: 30px;
+    }
+    .upload-section {
+        background: #ffffff; /* Background putih untuk kotak unggah */
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan lembut */
         margin-bottom: 20px;
     }
-    .button-div {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-    .image-container {
+    .footer {
         text-align: center;
-        margin-top: 20px;
+        font-size: 0.8rem;
+        color: #6c757d; /* Warna abu-abu */
+        margin-top: 50px;
     }
     .stButton>button {
-        background: #1f4e79; /* Warna biru tua */
+        background: #1f4e79; /* Tombol warna biru tua */
         color: white;
         font-size: 1rem;
         border-radius: 8px;
@@ -44,6 +45,10 @@ def apply_custom_css():
     }
     .stButton>button:hover {
         background: #145374; /* Biru lebih gelap saat di-hover */
+    }
+    .image-container {
+        text-align: center;
+        margin-top: 20px;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -58,7 +63,7 @@ def main():
     st.markdown("<div class='subheader'>Explore, Learn, and Protect Your Vision</div>", unsafe_allow_html=True)
 
     # Simulasi fitur interaktif
-    menu = ["Home", "Vision Simulator", "Eye Health Quiz", "Schedule Checkup"]
+    menu = ["Home", "Vision Simulator", "Eye Health Quiz", "Detection"]
     choice = st.sidebar.selectbox("Navigation", menu)
 
     if choice == "Home":
@@ -68,13 +73,9 @@ def main():
         Explore our features:
         - Vision Simulator: Experience what glaucoma looks like.
         - Eye Health Quiz: Test your knowledge about eye health.
-        - Schedule Checkup: Plan your next visit to an eye specialist.
+        - Detection: Upload retina images to analyze glaucoma risks.
         """)
-        st.write("💡 Stay curious and protect your vision!")
-
-        # Gambar Placeholder untuk galeri retina
-        st.image("https://via.placeholder.com/800x400.png?text=Retina+Art+Gallery", 
-                 caption="Explore the Retina Art Gallery", use_column_width=True)
+        st.image("https://via.placeholder.com/800x400.png?text=Retina+Art+Gallery", caption="Explore the Retina Art Gallery", use_column_width=True)
 
     elif choice == "Vision Simulator":
         st.subheader("🔍 Vision Simulator")
@@ -103,21 +104,30 @@ def main():
             else:
                 st.error("Incorrect! Glaucoma can't be cured, but early detection helps in management.")
 
-    elif choice == "Schedule Checkup":
-        st.subheader("📅 Schedule Your Checkup")
-        name = st.text_input("Enter Your Name")
-        age = st.slider("Select Your Age", 0, 100, 25)
-        date_selected = st.date_input("Select a Date for Your Checkup", date.today())
+    elif choice == "Detection":
+        st.markdown("<div class='main-header'>Retina Vision Detection</div>", unsafe_allow_html=True)
+        st.markdown("<div class='subheader'>Upload your retina image to analyze glaucoma risks</div>", unsafe_allow_html=True)
         
-        if st.button("Schedule Appointment"):
-            st.success(f"Appointment scheduled for {name} on {date_selected}.")
-    
-    # Footer aplikasi
-    st.markdown("""
-    <div style='text-align: center; margin-top: 50px; color: #6c757d; font-size: 0.9rem;'>
-    © 2024 Retina Vision Hub. All rights reserved.
-    </div>
-    """, unsafe_allow_html=True)
+        # Kotak unggah gambar
+        st.markdown("<div class='upload-section'>", unsafe_allow_html=True)
+        uploaded_file = st.file_uploader("Upload Retina Image", type=["jpg", "jpeg", "png"])
+        st.markdown("</div>", unsafe_allow_html=True)
+
+        # Placeholder untuk hasil analisis
+        if uploaded_file:
+            st.image(uploaded_file, caption="Uploaded Retina Image", use_column_width=True)
+            st.success("Image uploaded successfully! Analysis results will be displayed here.")
+        else:
+            st.info("Please upload an image to proceed.")
+
+        # Tombol ajakan bertindak
+        st.markdown("<div style='text-align:center; margin-top:20px;'>", unsafe_allow_html=True)
+        if st.button("Analyze Retina"):
+            st.warning("Model not integrated yet. Please wait for updates.")
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    # Footer
+    st.markdown("<div class='footer'>© 2024 Retina Vision Hub. All rights reserved.</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
