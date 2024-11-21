@@ -1,5 +1,4 @@
 import streamlit as st
-from datetime import date
 
 # Fungsi untuk gaya visual
 def apply_custom_css():
@@ -59,28 +58,34 @@ def main():
     apply_custom_css()
     
     # Header utama
-    st.markdown("<div class='header'>Welcome to Retina Vision Hub 🌟</div>", unsafe_allow_html=True)
-    st.markdown("<div class='subheader'>Explore, Learn, and Protect Your Vision</div>", unsafe_allow_html=True)
+    st.markdown("<div class='header'>Glaucoma Early Detection Hub</div>", unsafe_allow_html=True)
+    st.markdown("<div class='subheader'>Detect Glaucoma Early to Save Your Vision</div>", unsafe_allow_html=True)
 
     # Simulasi fitur interaktif
-    menu = ["Home", "Vision Simulator", "Eye Health Quiz", "Detection"]
+    menu = ["Home", "Vision Simulator", "Detection"]
     choice = st.sidebar.selectbox("Navigation", menu)
 
     if choice == "Home":
-        st.subheader("✨ About This App ✨")
+        st.subheader("👁️ About Glaucoma Early Detection Hub")
         st.write("""
-        Welcome to Retina Vision Hub! This interactive platform is designed to raise awareness about glaucoma and eye health.
+        Welcome to the **Glaucoma Early Detection Hub**, a platform dedicated to raising awareness about glaucoma 
+        and helping users detect the disease early through image-based analysis.
+        
+        Why it matters:
+        - Glaucoma is a leading cause of irreversible blindness.
+        - Early detection can slow down or prevent vision loss.
+        
         Explore our features:
-        - Vision Simulator: Experience what glaucoma looks like.
-        - Eye Health Quiz: Test your knowledge about eye health.
+        - Vision Simulator: Visualize the impact of glaucoma on vision.
         - Detection: Upload retina images to analyze glaucoma risks.
         """)
-        st.image("https://via.placeholder.com/800x400.png?text=Retina+Art+Gallery", caption="Explore the Retina Art Gallery", use_column_width=True)
+        st.image("https://via.placeholder.com/800x400.png?text=Glaucoma+Detection", 
+                 caption="Join us in preventing glaucoma blindness.", use_column_width=True)
 
     elif choice == "Vision Simulator":
         st.subheader("🔍 Vision Simulator")
-        st.write("Adjust the slider to simulate the effects of glaucoma on vision.")
-        severity = st.slider("Select Glaucoma Severity", 0, 100, 25)
+        st.write("Adjust the slider to simulate how glaucoma affects vision.")
+        severity = st.slider("Select Glaucoma Severity Level", 0, 100, 25)
         
         st.write("### Simulation Result")
         if severity < 30:
@@ -90,23 +95,9 @@ def main():
         else:
             st.image("https://via.placeholder.com/400x200.png?text=Severe+Glaucoma")
         
-    elif choice == "Eye Health Quiz":
-        st.subheader("🎯 Eye Health Quiz")
-        st.write("Test your knowledge about eye health and learn more!")
-
-        question = "Is glaucoma curable?"
-        options = ["Yes", "No"]
-        answer = st.radio("Q1: " + question, options)
-
-        if answer:
-            if answer == "No":
-                st.success("Correct! Glaucoma can be managed but not cured.")
-            else:
-                st.error("Incorrect! Glaucoma can't be cured, but early detection helps in management.")
-
     elif choice == "Detection":
-        st.markdown("<div class='main-header'>Retina Vision Detection</div>", unsafe_allow_html=True)
-        st.markdown("<div class='subheader'>Upload your retina image to analyze glaucoma risks</div>", unsafe_allow_html=True)
+        st.markdown("<div class='main-header'>Glaucoma Detection</div>", unsafe_allow_html=True)
+        st.markdown("<div class='subheader'>Upload your retina image to assess glaucoma risk</div>", unsafe_allow_html=True)
         
         # Kotak unggah gambar
         st.markdown("<div class='upload-section'>", unsafe_allow_html=True)
@@ -116,18 +107,18 @@ def main():
         # Placeholder untuk hasil analisis
         if uploaded_file:
             st.image(uploaded_file, caption="Uploaded Retina Image", use_column_width=True)
-            st.success("Image uploaded successfully! Analysis results will be displayed here.")
+            st.success("Image uploaded successfully! Analysis results will be displayed below.")
         else:
             st.info("Please upload an image to proceed.")
 
         # Tombol ajakan bertindak
         st.markdown("<div style='text-align:center; margin-top:20px;'>", unsafe_allow_html=True)
         if st.button("Analyze Retina"):
-            st.warning("Model not integrated yet. Please wait for updates.")
+            st.warning("Analysis model integration is in progress. Please check back soon.")
         st.markdown("</div>", unsafe_allow_html=True)
 
     # Footer
-    st.markdown("<div class='footer'>© 2024 Retina Vision Hub. All rights reserved.</div>", unsafe_allow_html=True)
+    st.markdown("<div class='footer'>© 2024 Glaucoma Early Detection Hub. Protect Your Vision Today.</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
