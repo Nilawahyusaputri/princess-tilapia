@@ -5,19 +5,19 @@ def apply_custom_css():
     st.markdown("""
     <style>
     body {
-        background: #f0f4f8; /* Warna latar belakang lembut */
+        background: #f5f7fa; /* Warna latar lembut */
         font-family: 'Arial', sans-serif;
     }
-    .main-header, .header {
-        font-size: 2.5rem;
+    .main-header {
+        font-size: 3rem;
         font-weight: bold;
-        color: #1f4e79; /* Warna biru tua */
+        color: #1a535c; /* Warna hijau kebiruan */
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .subheader {
         font-size: 1.2rem;
-        color: #495057; /* Warna abu-abu tua */
+        color: #4a5568; /* Warna abu-abu gelap */
         text-align: center;
         margin-bottom: 30px;
     }
@@ -30,12 +30,12 @@ def apply_custom_css():
     }
     .footer {
         text-align: center;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         color: #6c757d; /* Warna abu-abu */
         margin-top: 50px;
     }
     .stButton>button {
-        background: #1f4e79; /* Tombol warna biru tua */
+        background: #1a535c; /* Warna hijau kebiruan untuk tombol */
         color: white;
         font-size: 1rem;
         border-radius: 8px;
@@ -43,7 +43,7 @@ def apply_custom_css():
         border: none;
     }
     .stButton>button:hover {
-        background: #145374; /* Biru lebih gelap saat di-hover */
+        background: #0d3d44; /* Lebih gelap saat di-hover */
     }
     .image-container {
         text-align: center;
@@ -58,29 +58,28 @@ def main():
     apply_custom_css()
     
     # Header utama
-    st.markdown("<div class='header'>Glaucoma Early Detection Hub</div>", unsafe_allow_html=True)
-    st.markdown("<div class='subheader'>Detect Glaucoma Early to Save Your Vision</div>", unsafe_allow_html=True)
+    st.markdown("<div class='main-header'>GLAUCOLens</div>", unsafe_allow_html=True)
+    st.markdown("<div class='subheader'>See the World Clearly, Detect Glaucoma Early</div>", unsafe_allow_html=True)
 
-    # Simulasi fitur interaktif
+    # Menu navigasi
     menu = ["Home", "Vision Simulator", "Detection"]
     choice = st.sidebar.selectbox("Navigation", menu)
 
     if choice == "Home":
-        st.subheader("👁️ About Glaucoma Early Detection Hub")
+        st.subheader("👁️ About GLAUCOLens")
         st.write("""
-        Welcome to the **Glaucoma Early Detection Hub**, a platform dedicated to raising awareness about glaucoma 
-        and helping users detect the disease early through image-based analysis.
+        Welcome to **GLAUCOLens**, your trusted platform for early detection of glaucoma. 
+        Our mission is to empower individuals to take proactive steps in preserving their vision through advanced technology.
         
-        Why it matters:
-        - Glaucoma is a leading cause of irreversible blindness.
-        - Early detection can slow down or prevent vision loss.
+        **Why choose GLAUCOLens?**
+        - **Easy-to-use platform**: Upload retina images and get results in minutes.
+        - **Awareness tools**: Visualize how glaucoma affects vision using our Vision Simulator.
+        - **Scientific accuracy**: Built on cutting-edge medical imaging and machine learning.
         
-        Explore our features:
-        - Vision Simulator: Visualize the impact of glaucoma on vision.
-        - Detection: Upload retina images to analyze glaucoma risks.
+        Glaucoma is one of the leading causes of irreversible blindness, but early detection can save your vision. Let’s take action together to protect your eyes.
         """)
-        st.image("https://via.placeholder.com/800x400.png?text=Glaucoma+Detection", 
-                 caption="Join us in preventing glaucoma blindness.", use_column_width=True)
+        st.image("https://via.placeholder.com/800x400.png?text=GLAUCOLens+-+Protect+Your+Vision", 
+                 caption="Join GLAUCOLens in preserving vision for a lifetime.", use_column_width=True)
 
     elif choice == "Vision Simulator":
         st.subheader("🔍 Vision Simulator")
@@ -118,7 +117,7 @@ def main():
         st.markdown("</div>", unsafe_allow_html=True)
 
     # Footer
-    st.markdown("<div class='footer'>© 2024 Glaucoma Early Detection Hub. Protect Your Vision Today.</div>", unsafe_allow_html=True)
+    st.markdown("<div class='footer'>© 2024 GLAUCOLens. Let’s Protect Your Vision Together.</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
