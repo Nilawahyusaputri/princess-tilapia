@@ -80,7 +80,7 @@ def main():
     choice = st.sidebar.selectbox("Navigation", menu)
 
     if choice == "Home":
-        st.subheader("👁️ About GLAUCOLens")
+        st.subheader("👁️👁️ About GLAUCOLens")
         st.write("""
         Welcome to **GLAUCOLens**, your trusted platform for early detection of glaucoma. 
         Our mission is to empower individuals to take proactive steps in preserving their vision through advanced technology.
