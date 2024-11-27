@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 # Fungsi untuk gaya visual
 def apply_custom_css():
@@ -20,23 +21,6 @@ def apply_custom_css():
         color: #495057; /* Warna abu-abu tua */
         text-align: center;
         margin-bottom: 30px;
-    }
-    .upload-section {
-        background: #ffffff; /* Background putih untuk kotak unggah */
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan lembut */
-        margin-bottom: 20px;
-    }
-    .info-box {
-        background: #ffffff;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
-        font-size: 1rem;
-        color: #495057;
-        text-align: center;
-        margin: 20px 0;
     }
     .footer {
         text-align: center;
@@ -109,13 +93,12 @@ def main():
             img = Image.open("Severe.png")
             st.image(img, caption="Severe Glaucoma", use_column_width=True)
 
-        
     elif choice == "Detection":
         st.markdown("<div class='main-header' style='font-size: 1.5rem;'>Glaucoma Detection</div>", unsafe_allow_html=True)
         
         # Teks informasi dalam info box
         st.markdown("""
-        <div class='info-box'>
+        <div style='background: #ffffff; border-radius: 10px; padding: 15px; box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1); font-size: 1rem; color: #495057; text-align: center; margin: 20px 0;'>
         Could you upload a picture of the inside of your eye (fundus)? 
         It's the photo that shows the retina and blood vessels.
         </div>
