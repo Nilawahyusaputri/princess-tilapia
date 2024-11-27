@@ -4,21 +4,21 @@ import streamlit as st
 def apply_custom_css():
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap'); /* Font modern */
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
     body {
-        background: linear-gradient(135deg, #f9f7f7, #dbe2ef); /* Gradien lembut */
+        background: linear-gradient(135deg, #f9f7f7, #dbe2ef);
         font-family: 'Raleway', sans-serif;
     }
     .main-header {
         font-size: 3rem;
         font-weight: bold;
-        color: #112d4e; /* Biru gelap */
+        color: #112d4e;
         text-align: center;
         margin-bottom: 10px;
     }
     .subheader {
         font-size: 1.3rem;
-        color: #3f72af; /* Biru terang */
+        color: #3f72af;
         text-align: center;
         margin-bottom: 30px;
     }
@@ -29,6 +29,23 @@ def apply_custom_css():
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
     }
+    .info-box {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+        font-size: 1rem;
+        color: #495057;
+        text-align: center;
+        margin: 20px 0;
+    }
+    .detection-header {
+        font-size: 1.8rem; /* Perkecil ukuran */
+        font-weight: bold;
+        color: #112d4e;
+        text-align: center;
+        margin-bottom: 10px;
+    }
     .footer {
         text-align: center;
         font-size: 0.9rem;
@@ -36,7 +53,7 @@ def apply_custom_css():
         margin-top: 50px;
     }
     .stButton>button {
-        background: #3f72af; /* Tombol warna biru terang */
+        background: #3f72af;
         color: white;
         font-size: 1rem;
         border-radius: 8px;
@@ -44,11 +61,7 @@ def apply_custom_css():
         border: none;
     }
     .stButton>button:hover {
-        background: #2b6ca3; /* Warna biru lebih gelap saat hover */
-    }
-    .image-container {
-        text-align: center;
-        margin-top: 20px;
+        background: #2b6ca3;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -109,9 +122,17 @@ def main():
         """)
 
     elif choice == "Detection":
-        st.markdown("<div class='main-header'>Glaucoma Detection</div>", unsafe_allow_html=True)
-        st.markdown("<div class='subheader'>Could you upload a picture of the inside of your eye (fundus)? It's the photo that shows the retina and blood vessels.</div>", unsafe_allow_html=True)
+        # Perkecil header
+        st.markdown("<div class='detection-header'>Glaucoma Detection</div>", unsafe_allow_html=True)
         
+        # Teks informasi dalam kotak putih
+        st.markdown("""
+        <div class='info-box'>
+        Could you upload a picture of the inside of your eye (fundus)? 
+        It's the photo that shows the retina and blood vessels.
+        </div>
+        """, unsafe_allow_html=True)
+
         # Kotak unggah gambar
         st.markdown("<div class='upload-section'>", unsafe_allow_html=True)
         uploaded_file = st.file_uploader("Upload Fundus Image", type=["jpg", "jpeg", "png"])
