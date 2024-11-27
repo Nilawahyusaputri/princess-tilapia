@@ -94,10 +94,12 @@ def main():
         severity = st.slider("Select Glaucoma Severity Level", 0, 100, 25)
         
         st.write("### Simulation Result")
-        if severity < 30:
+        if severity < 25:
             st.image("https://via.placeholder.com/400x200.png?text=Normal+Vision")
-        elif severity < 70:
-            st.image("https://via.placeholder.com/400x200.png?text=Mild+Glaucoma")
+        elif severity < 50:
+            st.image("https://via.placeholder.com/400x200.png?text=Early+Glaucoma")
+        elif severity < 75:
+            st.image("https://via.placeholder.com/400x200.png?text=Advance+Glaucoma")
         else:
             st.image("https://via.placeholder.com/400x200.png?text=Severe+Glaucoma")
         
