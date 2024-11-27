@@ -5,37 +5,38 @@ def apply_custom_css():
     st.markdown("""
     <style>
     body {
-        background: linear-gradient(135deg, #e8f0fe, #ffffff); /* Latar warna menarik */
+        background: #f0f4f8; /* Warna latar belakang lembut */
         font-family: 'Arial', sans-serif;
     }
-    .header {
-        font-size: 3rem; /* Pertebal dan perbesar */
+    .main-header {
+        font-size: 3rem;
         font-weight: bold;
-        color: #1a73e8; /* Warna biru menarik */
+        color: #1f4e79; /* Warna biru tua */
         text-align: center;
         margin-bottom: 20px;
     }
     .subheader {
         font-size: 1.2rem;
-        color: #5f6368; /* Abu-abu lembut */
+        color: #495057; /* Warna abu-abu tua */
         text-align: center;
         margin-bottom: 30px;
     }
     .upload-section {
-        background: #ffffff; /* Kotak putih */
+        background: #ffffff; /* Background putih untuk kotak unggah */
         border-radius: 15px;
         padding: 20px;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan lembut */
         margin-bottom: 20px;
     }
     .info-box {
-        background: #f1f8ff; /* Warna biru lembut */
-        border-left: 5px solid #1a73e8; /* Garis biru di sisi kiri */
+        background: #ffffff;
         border-radius: 10px;
         padding: 15px;
-        margin: 20px 0;
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
         font-size: 1rem;
-        color: #1a202c;
+        color: #495057;
+        text-align: center;
+        margin: 20px 0;
     }
     .footer {
         text-align: center;
@@ -44,7 +45,7 @@ def apply_custom_css():
         margin-top: 50px;
     }
     .stButton>button {
-        background: #1a73e8; /* Tombol warna biru */
+        background: #1f4e79; /* Tombol warna biru tua */
         color: white;
         font-size: 1rem;
         border-radius: 8px;
@@ -52,18 +53,7 @@ def apply_custom_css():
         border: none;
     }
     .stButton>button:hover {
-        background: #155cb0; /* Biru lebih gelap saat di-hover */
-    }
-    .detection-header {
-        font-size: 1.5rem; /* Perkecil ukuran */
-        font-weight: bold;
-        color: #1a73e8;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-    .image-container {
-        text-align: center;
-        margin-top: 20px;
+        background: #145374; /* Biru lebih gelap saat di-hover */
     }
     </style>
     """, unsafe_allow_html=True)
@@ -74,7 +64,7 @@ def main():
     apply_custom_css()
     
     # Header utama
-    st.markdown("<div class='header'>GLAUCOLens</div>", unsafe_allow_html=True)
+    st.markdown("<div class='main-header'>GLAUCOLens</div>", unsafe_allow_html=True)
     st.markdown("<div class='subheader'>See the World Clearly, Detect Glaucoma Early</div>", unsafe_allow_html=True)
 
     # Simulasi fitur interaktif
@@ -84,7 +74,7 @@ def main():
     if choice == "Home":
         st.subheader("👁️ About GLAUCOLens")
         st.write("""
-        Welcome to the **GLAUCOLens**, a platform dedicated to raising awareness about glaucoma 
+        Welcome to **GLAUCOLens**, a platform dedicated to raising awareness about glaucoma 
         and helping users detect the disease early through image-based analysis.
         
         Why it matters:
@@ -95,7 +85,7 @@ def main():
         - Vision Simulator: Visualize the impact of glaucoma on vision.
         - Detection: Upload retina images to analyze glaucoma risks.
         """)
-        st.image("https://via.placeholder.com/800x400.png?text=GLAUCOLens+-+Protect+Your+Vision", 
+        st.image("https://via.placeholder.com/800x400.png?text=Glaucoma+Detection", 
                  caption="Join us in preventing glaucoma blindness.", use_column_width=True)
 
     elif choice == "Vision Simulator":
@@ -112,10 +102,9 @@ def main():
             st.image("https://via.placeholder.com/400x200.png?text=Severe+Glaucoma")
         
     elif choice == "Detection":
-        # Header deteksi diperbaiki
-        st.markdown("<div class='detection-header'>Glaucoma Detection</div>", unsafe_allow_html=True)
+        st.markdown("<div class='main-header' style='font-size: 1.5rem;'>Glaucoma Detection</div>", unsafe_allow_html=True)
         
-        # Info box untuk instruksi
+        # Teks informasi dalam info box
         st.markdown("""
         <div class='info-box'>
         Could you upload a picture of the inside of your eye (fundus)? 
@@ -124,9 +113,7 @@ def main():
         """, unsafe_allow_html=True)
         
         # Kotak unggah gambar
-        st.markdown("<div class='upload-section'>", unsafe_allow_html=True)
         uploaded_file = st.file_uploader("Upload Fundus Image", type=["jpg", "jpeg", "png"])
-        st.markdown("</div>", unsafe_allow_html=True)
 
         # Placeholder untuk hasil analisis
         if uploaded_file:
