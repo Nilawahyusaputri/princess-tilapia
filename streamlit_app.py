@@ -72,7 +72,7 @@ def main():
     choice = st.sidebar.selectbox("Navigation", menu)
 
     if choice == "Home":
-        st.subheader("👁️ About GLAUCOLens")
+        st.subheader("👁️👁️ About GLAUCOLens")
         st.write("""
         Welcome to **GLAUCOLens**, a platform dedicated to raising awareness about glaucoma 
         and helping users detect the disease early through image-based analysis.
@@ -88,7 +88,7 @@ def main():
         st.image("https://via.placeholder.com/800x400.png?text=Glaucoma+Detection", 
                  caption="Join us in preventing glaucoma blindness.", use_column_width=True)
 
-    elif choice == "Vision Simulator":
+elif choice == "Vision Simulator":
         st.subheader("🔍 Vision Simulator")
         st.write("Adjust the slider to simulate how glaucoma affects vision.")
         severity = st.slider("Select Glaucoma Severity Level", 0, 100, 25)
