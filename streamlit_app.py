@@ -4,38 +4,39 @@ import streamlit as st
 def apply_custom_css():
     st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap'); /* Font modern */
     body {
-        background: #f5f7fa; /* Warna latar lembut */
-        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #f9f7f7, #dbe2ef); /* Gradien lembut */
+        font-family: 'Raleway', sans-serif;
     }
     .main-header {
         font-size: 3rem;
         font-weight: bold;
-        color: #1a535c; /* Warna hijau kebiruan */
+        color: #112d4e; /* Biru gelap */
         text-align: center;
         margin-bottom: 10px;
     }
     .subheader {
-        font-size: 1.2rem;
-        color: #4a5568; /* Warna abu-abu gelap */
+        font-size: 1.3rem;
+        color: #3f72af; /* Biru terang */
         text-align: center;
         margin-bottom: 30px;
     }
     .upload-section {
-        background: #ffffff; /* Background putih untuk kotak unggah */
+        background: #ffffff;
         border-radius: 15px;
         padding: 20px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan lembut */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
     }
     .footer {
         text-align: center;
         font-size: 0.9rem;
-        color: #6c757d; /* Warna abu-abu */
+        color: #6c757d;
         margin-top: 50px;
     }
     .stButton>button {
-        background: #1a535c; /* Warna hijau kebiruan untuk tombol */
+        background: #3f72af; /* Tombol warna biru terang */
         color: white;
         font-size: 1rem;
         border-radius: 8px;
@@ -43,7 +44,7 @@ def apply_custom_css():
         border: none;
     }
     .stButton>button:hover {
-        background: #0d3d44; /* Lebih gelap saat di-hover */
+        background: #2b6ca3; /* Warna biru lebih gelap saat hover */
     }
     .image-container {
         text-align: center;
@@ -88,12 +89,15 @@ def main():
         
         st.write("### Simulation Result")
         if severity < 30:
-            st.image("https://via.placeholder.com/400x200.png?text=Normal+Vision")
+            st.image("https://via.placeholder.com/400x200.png?text=Normal+Vision", 
+                     caption="Normal Vision", use_column_width=True)
         elif severity < 70:
-            st.image("https://via.placeholder.com/400x200.png?text=Mild+Glaucoma")
+            st.image("https://via.placeholder.com/400x200.png?text=Mild+Glaucoma", 
+                     caption="Mild Glaucoma", use_column_width=True)
         else:
-            st.image("https://via.placeholder.com/400x200.png?text=Severe+Glaucoma")
-        
+            st.image("https://via.placeholder.com/400x200.png?text=Severe+Glaucoma", 
+                     caption="Severe Glaucoma", use_column_width=True)
+
     elif choice == "Detection":
         st.markdown("<div class='main-header'>Glaucoma Detection</div>", unsafe_allow_html=True)
         st.markdown("<div class='subheader'>Could you upload a picture of the inside of your eye (fundus)? It's the photo that shows the retina and blood vessels.</div>", unsafe_allow_html=True)
