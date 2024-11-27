@@ -123,6 +123,3 @@ def main():
 if _name_ == "_main_":
     main()
 
-
-nilawahyusaputri2002@ugm
-KODE WEB STREAMLIT TKTB
