@@ -80,7 +80,7 @@ def main():
     choice = st.sidebar.selectbox("Navigation", menu)
 
     if choice == "Home":
-        st.subheader("👁️👁️ About GLAUCOLens")
+        st.subheader("👁️ About GLAUCOLens")
         st.write("""
         Welcome to **GLAUCOLens**, your trusted platform for early detection of glaucoma. 
         Our mission is to empower individuals to take proactive steps in preserving their vision through advanced technology.
@@ -134,9 +134,7 @@ def main():
         """, unsafe_allow_html=True)
 
         # Kotak unggah gambar
-        st.markdown("<div class='upload-section'>", unsafe_allow_html=True)
         uploaded_file = st.file_uploader("Upload Fundus Image", type=["jpg", "jpeg", "png"])
-        st.markdown("</div>", unsafe_allow_html=True)
 
         # Placeholder untuk hasil analisis
         if uploaded_file:
@@ -144,12 +142,6 @@ def main():
             st.success("Image uploaded successfully! Analysis results will be displayed below.")
         else:
             st.info("Please upload an image to proceed.")
-
-        # Tombol ajakan bertindak
-        st.markdown("<div style='text-align:center; margin-top:20px;'>", unsafe_allow_html=True)
-        if st.button("Analyze Fundus"):
-            st.warning("Analysis model integration is in progress. Please check back soon.")
-        st.markdown("</div>", unsafe_allow_html=True)
 
     # Footer
     st.markdown("<div class='footer'>© 2024 GLAUCOLens. Let’s Protect Your Vision Together.</div>", unsafe_allow_html=True)
