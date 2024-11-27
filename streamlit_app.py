@@ -91,17 +91,24 @@ def main():
     elif choice == "Vision Simulator":
         st.subheader("🔍 Vision Simulator")
         st.write("Adjust the slider to simulate how glaucoma affects vision.")
+
+        # Slider untuk memilih tingkat keparahan
         severity = st.slider("Select Glaucoma Severity Level", 0, 100, 25)
-        
-        st.write("### Simulation Result")
+
+        # Menampilkan gambar berdasarkan tingkat keparahan
         if severity < 25:
-            st.image("https://via.placeholder.com/400x200.png?text=Normal+Vision")
+            img = Image.open("Normal.png")
+            st.image(img, caption="Normal Vision", use_column_width=True)
         elif severity < 50:
-            st.image("https://via.placeholder.com/400x200.png?text=Early+Glaucoma")
-        elif severity < 70:
-            st.image("https://via.placeholder.com/400x200.png?text=Advance+Glaucoma")
+            img = Image.open("Mild.png")
+            st.image(img, caption="Early Glaucoma", use_column_width=True)
+        elif severity < 75:
+            img = Image.open("Medium.png")
+            st.image(img, caption="Advanced Glaucoma", use_column_width=True)
         else:
-            st.image("https://via.placeholder.com/400x200.png?text=Severe+Glaucoma")
+            img = Image.open("Severe.png")
+            st.image(img, caption="Severe Glaucoma", use_column_width=True)
+
         
     elif choice == "Detection":
         st.markdown("<div class='main-header' style='font-size: 1.5rem;'>Glaucoma Detection</div>", unsafe_allow_html=True)
