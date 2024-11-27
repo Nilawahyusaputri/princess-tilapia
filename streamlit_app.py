@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image, ImageEnhance, ImageDraw, ImageFilter
 
 # Fungsi untuk gaya visual
 def apply_custom_css():
@@ -21,23 +22,6 @@ def apply_custom_css():
         text-align: center;
         margin-bottom: 30px;
     }
-    .upload-section {
-        background: #ffffff; /* Background putih untuk kotak unggah */
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan lembut */
-        margin-bottom: 20px;
-    }
-    .info-box {
-        background: #ffffff;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
-        font-size: 1rem;
-        color: #495057;
-        text-align: center;
-        margin: 20px 0;
-    }
     .footer {
         text-align: center;
         font-size: 0.8rem;
@@ -58,6 +42,33 @@ def apply_custom_css():
     </style>
     """, unsafe_allow_html=True)
 
+# Fungsi untuk menghasilkan simulasi glaucoma
+def generate_glaucoma_simulation(image, severity):
+    if severity == 0:
+        return image  # Gambar asli tanpa efek
+    else:
+        # Terapkan blur sesuai tingkat keparahan
+        blur_amount = severity / 10  # Skala blur
+        blurred_image = image.filter(ImageFilter.GaussianBlur(blur_amount))
+
+        # Tambahkan efek lingkaran gelap di tepi untuk simulasi glaucoma
+        overlay = Image.new("RGBA", image.size, (0, 0, 0, 0))
+        draw = ImageDraw.Draw(overlay)
+        width, height = image.size
+        center = (width // 2, height // 2)
+        max_radius = min(center)
+
+        for i in range(severity):
+            draw.ellipse(
+                [center[0] - max_radius + i * 5, center[1] - max_radius + i * 5, 
+                 center[0] + max_radius - i * 5, center[1] + max_radius - i * 5],
+                outline=(0, 0, 0, int(5 * (100 - severity))),
+                width=5
+            )
+
+        final_image = Image.alpha_composite(blurred_image.convert("RGBA"), overlay)
+        return final_image.convert("RGB")
+
 # Aplikasi utama
 def main():
     # Terapkan CSS
@@ -67,7 +78,7 @@ def main():
     st.markdown("<div class='main-header'>GLAUCOLens</div>", unsafe_allow_html=True)
     st.markdown("<div class='subheader'>See the World Clearly, Detect Glaucoma Early</div>", unsafe_allow_html=True)
 
-    # Simulasi fitur interaktif
+    # Menu
     menu = ["Home", "Vision Simulator", "Detection"]
     choice = st.sidebar.selectbox("Navigation", menu)
 
@@ -93,20 +104,15 @@ def main():
         st.write("Adjust the slider to simulate how glaucoma affects vision.")
         severity = st.slider("Select Glaucoma Severity Level", 0, 100, 25)
         
-        st.write("### Simulation Result")
-        if severity < 25:
-            st.image("https://via.placeholder.com/400x200.png?text=Normal+Vision")
-        elif severity < 50:
-            st.image("https://via.placeholder.com/400x200.png?text=Early+Glaucoma")
-        elif severity < 75:
-            st.image("https://via.placeholder.com/400x200.png?text=Advance+Glaucoma")
-        else:
-            st.image("https://via.placeholder.com/400x200.png?text=Severe+Glaucoma")
+        # Load dan tampilkan gambar
+        default_image = Image.open("vision_sample.jpg")  # Gambar contoh
+        simulated_image = generate_glaucoma_simulation(default_image, severity)
         
+        st.write("### Simulation Result")
+        st.image(simulated_image, caption=f"Glaucoma Severity Level: {severity}%", use_column_width=True)
+
     elif choice == "Detection":
         st.markdown("<div class='main-header' style='font-size: 1.5rem;'>Glaucoma Detection</div>", unsafe_allow_html=True)
-        
-        # Teks informasi dalam info box
         st.markdown("""
         <div class='info-box'>
         Could you upload a picture of the inside of your eye (fundus)? 
@@ -114,23 +120,16 @@ def main():
         </div>
         """, unsafe_allow_html=True)
         
-        # Kotak unggah gambar
         uploaded_file = st.file_uploader("Upload Fundus Image", type=["jpg", "jpeg", "png"])
-
-        # Placeholder untuk hasil analisis
         if uploaded_file:
             st.image(uploaded_file, caption="Uploaded Fundus Image", use_column_width=True)
             st.success("Image uploaded successfully! Analysis results will be displayed below.")
         else:
             st.info("Please upload an image to proceed.")
 
-        # Tombol ajakan bertindak
-        st.markdown("<div style='text-align:center; margin-top:20px;'>", unsafe_allow_html=True)
         if st.button("Analyze Fundus"):
             st.warning("Analysis model integration is in progress. Please check back soon.")
-        st.markdown("</div>", unsafe_allow_html=True)
 
-    # Footer
     st.markdown("<div class='footer'>© 2024 GLAUCOLens. Protect Your Vision Today.</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
