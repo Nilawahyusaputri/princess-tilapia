@@ -66,9 +66,9 @@ def main():
     choice = st.sidebar.selectbox("Navigation", menu)
 
     if choice == "Home":
-        st.subheader("👁 About Glaucoma Early Detection Hub")
+        st.subheader("👁️ About Glaucoma Early Detection Hub")
         st.write("""
-        Welcome to the *Glaucoma Early Detection Hub*, a platform dedicated to raising awareness about glaucoma 
+        Welcome to the **Glaucoma Early Detection Hub**, a platform dedicated to raising awareness about glaucoma 
         and helping users detect the disease early through image-based analysis.
         
         Why it matters:
@@ -120,6 +120,5 @@ def main():
     # Footer
     st.markdown("<div class='footer'>© 2024 Glaucoma Early Detection Hub. Protect Your Vision Today.</div>", unsafe_allow_html=True)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
-
